@@ -6,16 +6,22 @@ using System.Runtime.Serialization.Formatters.Binary;
 namespace SerializePeople
 {
     [Serializable]
-    public class Person
+    public class Person : IDeserializationCallback
     {
         public string Name { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Gender Gender { get; set; }
-        public int Age { get; }
+        [NonSerialized]
+        private int Age;
 
         public Person()
         {
 
+        }
+
+        public int GetAge()
+        {
+            return Age;
         }
 
         public Person(string name, DateTime dob, Gender gender)
@@ -58,6 +64,10 @@ namespace SerializePeople
             return person;
         }
 
+        public void OnDeserialization(object sender)
+        {
+            this.Age = calculateAge();
+        }
 
         private int calculateAge()
         {
