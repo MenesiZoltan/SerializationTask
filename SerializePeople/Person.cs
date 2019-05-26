@@ -14,10 +14,7 @@ namespace SerializePeople
         [NonSerialized]
         private int Age;
 
-        public Person()
-        {
-
-        }
+        public Person() {}
 
         public int GetAge()
         {
